@@ -18,68 +18,67 @@ void main() {
   final File file = File('data/day2input.txt');
   // final File file = File('data/day2input_example.txt');
   final List<String> commandsData = file.readAsLinesSync();
-  final List<Command> commands = parseCommands(commandsData);
+  final List<Map<String, int>> commands = parseCommands(commandsData);
 
   calculatePosition(commands);
   calculatePositionButAfterReadingTheManualLMAO(commands);
 }
 
-void calculatePosition(List<Command> commands) {
+void calculatePosition(List<Map<String, int>> commands) {
   int depth = 0;
   int horizontalPosition = 0;
 
   for (var command in commands) {
-    switch (command.instruction) {
-      case 'forward':
-        horizontalPosition += command.value;
-        break;
-      case 'up':
-        depth -= command.value;
-        break;
-      case 'down':
-        depth += command.value;
-        break;
-    }
+    command.forEach((key, value) {
+      switch (key) {
+        case 'forward':
+          horizontalPosition += value;
+          break;
+        case 'up':
+          depth -= value;
+          break;
+        case 'down':
+          depth += value;
+          break;
+      }
+    });
   }
 
   print(
       'depth: $depth, hp: $horizontalPosition, multiplied: ${depth * horizontalPosition}');
 }
 
-void calculatePositionButAfterReadingTheManualLMAO(List<Command> commands) {
+void calculatePositionButAfterReadingTheManualLMAO(
+    List<Map<String, int>> commands) {
   int depth = 0;
   int horizontalPosition = 0;
   int aim = 0;
 
   for (var command in commands) {
-    switch (command.instruction) {
-      case 'forward':
-        horizontalPosition += command.value;
-        depth += command.value * aim;
-        break;
-      case 'up':
-        aim -= command.value;
-        break;
-      case 'down':
-        aim += command.value;
-        break;
-    }
+    command.forEach((key, value) {
+      switch (key) {
+        case 'forward':
+          horizontalPosition += value;
+          depth += value * aim;
+          break;
+        case 'up':
+          aim -= value;
+          break;
+        case 'down':
+          aim += value;
+          break;
+      }
+    });
   }
   print(
       'depth: $depth, hp: $horizontalPosition, multiplied: ${depth * horizontalPosition}');
 }
 
-List<Command> parseCommands(List<String> commandsData) {
+List<Map<String, int>> parseCommands(List<String> commandsData) {
   final commands = commandsData.map((e) {
     final commandData = e.split(' ');
-    return Command(commandData[0], int.parse(commandData[1]));
+    return {commandData[0]: int.parse(commandData[1])};
   }).toList();
 
   return commands;
-}
-
-class Command {
-  final String instruction;
-  final int value;
-  Command(this.instruction, this.value);
 }
