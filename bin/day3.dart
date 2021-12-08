@@ -51,7 +51,7 @@ List<List<String>> getColumns(List<String> report) {
 
 /// Each bit in the gamma rate can be determined by finding the **most common bit in the corresponding position** of all numbers in the diagnostic report.
 String getGammaRate(List<List<String>> reportColumns) {
-  List<String> gammaRate = [];
+  String gammaRate = '';
   for (var i = 0; i < reportColumns.length; i++) {
     int counter0 = 0, counter1 = 0;
     for (var j = 0; j < reportColumns[0].length; j++) {
@@ -62,12 +62,12 @@ String getGammaRate(List<List<String>> reportColumns) {
       }
     }
     if (counter0 > counter1) {
-      gammaRate.add('0');
+      gammaRate += '0';
     } else {
-      gammaRate.add('1');
+      gammaRate += '1';
     }
   }
-  return gammaRate.join();
+  return gammaRate;
 }
 
 /// similar to Gamma Rate, but rather than use the most common bit, the least common bit from each position is used.\
@@ -120,35 +120,25 @@ String getLifeSuppRate(List<String> report, LifeSuppType lifeSuppType) {
     // rebuild columns
     List<List<String>> reportColumns = getColumns(reportCopy);
     int bit0Counter = 0, bit1Counter = 0;
-    List<int> bit0Indexes = [], bit1Indexes = [];
+    List<String> bits0List = [], bits1List = [];
 
     for (var j = 0; j < reportColumns[0].length; j++) {
       if (reportColumns[i][j] == '0') {
         bit0Counter++;
-        bit0Indexes.add(j);
+        bits0List.add(reportCopy[j]);
       } else {
         bit1Counter++;
-        bit1Indexes.add(j);
+        bits1List.add(reportCopy[j]);
       }
     }
-    // delete rows
-    int removedCounter = 0;
-    List<int> inexesToRemove = [];
     if (bit0Counter > bit1Counter) {
-      inexesToRemove =
-          lifeSuppType == LifeSuppType.o2 ? bit1Indexes : bit0Indexes;
+      reportCopy = lifeSuppType == LifeSuppType.o2 ? bits0List : bits1List;
     } else {
-      inexesToRemove =
-          lifeSuppType == LifeSuppType.o2 ? bit0Indexes : bit1Indexes;
-    }
-    for (var index in inexesToRemove) {
-      reportCopy.removeAt(index - removedCounter);
-      removedCounter++;
+      reportCopy = lifeSuppType == LifeSuppType.o2 ? bits1List : bits0List;
     }
 
     if (reportCopy.length == 1) break;
   }
-  print(reportCopy.length);
   return reportCopy[0];
 }
 
