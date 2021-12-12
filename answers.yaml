@@ -1,0 +1,55 @@
+# ? why a yaml file? because I like them hahah
+day1:
+  part1: 1475
+  part2: 1516
+day2:
+  part1: 1714680
+  part2: 1963088820
+
+day3:
+  part1:
+    power_consumption: 2261546 # *
+    gamma_bin: 110101101101
+    epsilon_bin: 001010010010
+    gamma: 3437
+    epsilon: 658
+  part2:
+    life_support: 6775520 # *
+    o2_bin: 111110011011
+    co2_bin: 011010100000
+    o2: 3995
+    co2: 1696
+
+day4:
+  part1: 
+    first_board_score: 87456 # *
+    last_drawn_number: 96
+    unmarked_sum: 911
+  part2:
+    last_board_score: 15561 # *
+    last_drawn_number: 39
+    unmarked_sum: 399
+
+day3_example:
+  part1:
+    power_consumption: 198
+    gamma_bin: 10110
+    epsilon_bin: 01001
+    gamma: 22
+    epsilon: 9
+  part2:
+    life_support: 230
+    o2_bin: 10111
+    co2_bin: 01010
+    o2: 23
+    co2: 10
+
+day4_example:
+  part1:
+    first_board_score: 4512
+    last_drawn_number: 24
+    unmarked_sum: 188
+  part2:
+    last_board_score: 1924
+    last_drawn_number: 13
+    unmarked_sum: 148

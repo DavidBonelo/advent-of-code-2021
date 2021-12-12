@@ -41,11 +41,11 @@ Map getWinnerBoard(List<String> report, Position position) {
 
 enum Position { first, last }
 
-List<Map> playNumber(List<List<List<String>>> boardsMatrix, String number) {
+List<Map> playNumber(List<List<List<String>>> boardsList, String number) {
   List<Map> winners = [];
 
-  for (var i = 0; i < boardsMatrix.length; i++) {
-    final board = boardsMatrix[i];
+  for (var i = 0; i < boardsList.length; i++) {
+    final board = boardsList[i];
 
     if (drawNumber(board, number)) {
       winners.add({
